@@ -28,11 +28,11 @@ app.use(bodyParser.urlencoded({
 app.post('/createReminder', twilio.webhook(authToken, {url: 'https://remind-jc.herokuapp.com/createReminder'}), function(req, res) {
     //Validate that this request really came from Twilio...
     console.log('test')
-    // var twiml = new twilio.TwimlResponse();
-    // twiml.message('Hello from node.js booi!');
+    var twiml = new twilio.TwimlResponse();
+    twiml.message('Hello from node.js booi!');
 
     // Render the TwiML response as XML
-    res.send('boom');
+    res.send(twiml);
     // console.log(authToken)
     // if (twilio.validateExpressRequest(req, authToken)) {
     //   console.log('valid')
