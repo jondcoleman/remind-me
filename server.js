@@ -22,11 +22,14 @@ var app = express();
 // Create a route to respond to a call
 app.post('/createReminder', function(req, res) {
     //Validate that this request really came from Twilio...
+    console.log(authToken)
     if (twilio.validateExpressRequest(req, authToken)) {
+      console.log('valid')
       response.send('<Response><Sms>Voting is now closed.</Sms></Response>');
     }
     else {
-        res.send('you are not twilio.  Buzz off.');
+      console.log('not valid')
+      res.send('you are not twilio.  Buzz off.');
     }
 });
 
