@@ -25,17 +25,22 @@ app.use(bodyParser.urlencoded({
 }))
 
 // Create a route to respond to a call
-app.post('/createReminder', function(req, res) {
+app.post('/createReminder', twilio.webhook(), function(req, res) {
     //Validate that this request really came from Twilio...
-    console.log(authToken)
-    if (twilio.validateExpressRequest(req, authToken)) {
-      console.log('valid')
-      response.send('<Response><Sms>Voting is now closed.</Sms></Response>');
-    }
-    else {
-      console.log('not valid')
-      res.send('you are not twilio.  Buzz off.');
-    }
+    var twiml = new twilio.TwimlResponse();
+    twiml.message('Hello from node.js booi!');
+
+    // Render the TwiML response as XML
+    response.send(twiml);
+    // console.log(authToken)
+    // if (twilio.validateExpressRequest(req, authToken)) {
+    //   console.log('valid')
+    //   res.send('<Response><Sms>Voting is now closed.</Sms></Response>');
+    // }
+    // else {
+    //   console.log('not valid')
+    //   res.send('you are not twilio.  Buzz off.');
+    // }
 });
 
 app.listen(process.env.PORT || 3000);
