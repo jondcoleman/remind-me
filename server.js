@@ -1,10 +1,11 @@
 var twilio = require('express')
 var express = require('express')
+var bodyParser = require('body-parser')
 require('dotenv').config()
 
 var accountSid = process.env.ACCOUNT_SID // Your Account SID from www.twilio.com/console
 var authToken = process.env.AUTH_TOKEN   // Your Auth Token from www.twilio.com/console
-
+console.log(accountSid, authToken)
 var twilio = require('twilio');
 var client = new twilio.RestClient(accountSid, authToken);
 
@@ -13,11 +14,15 @@ client.messages.create({
     to: '+13017755903',  // Text this number
     from: '+12408984430' // From a valid Twilio number
 }, function(err, message) {
+    if (err) console.log(err)
     console.log(message.sid);
 });
 
 var app = express();
-// app.use(express.urlencoded());
+
+app.use(bodyParser.urlencoded({
+    extended: true
+}))
 
 // Create a route to respond to a call
 app.post('/createReminder', function(req, res) {
