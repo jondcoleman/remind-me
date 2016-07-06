@@ -27,11 +27,12 @@ app.use(bodyParser.urlencoded({
 // Create a route to respond to a call
 app.post('/createReminder', twilio.webhook(authToken), function(req, res) {
     //Validate that this request really came from Twilio...
-    var twiml = new twilio.TwimlResponse();
-    twiml.message('Hello from node.js booi!');
+    console.log('test')
+    // var twiml = new twilio.TwimlResponse();
+    // twiml.message('Hello from node.js booi!');
 
     // Render the TwiML response as XML
-    res.send(twiml);
+    res.send('boom');
     // console.log(authToken)
     // if (twilio.validateExpressRequest(req, authToken)) {
     //   console.log('valid')
