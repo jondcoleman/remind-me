@@ -31,7 +31,7 @@ app.post('/createReminder', twilio.webhook(authToken), function(req, res) {
     twiml.message('Hello from node.js booi!');
 
     // Render the TwiML response as XML
-    response.send(twiml);
+    res.send(twiml);
     // console.log(authToken)
     // if (twilio.validateExpressRequest(req, authToken)) {
     //   console.log('valid')
