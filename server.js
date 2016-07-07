@@ -20,7 +20,7 @@ var agenda = new Agenda({db: {address: mongoConnectionString, collection: 'remin
 agenda.define('create scheduled reminder', function(job) {
   client.messages.create({
       body: job.attrs.data.task,
-      to: job.attrs.data.task,  // Text this number
+      to: job.attrs.data.number,  // Text this number
       from: twilioNum // From a valid Twilio number
   }, function(err, message) {
       if (err) console.log(err)
@@ -30,6 +30,7 @@ agenda.define('create scheduled reminder', function(job) {
 
 agenda.on('ready', function() {
   agenda.start();
+
 });
 
 function createReminder(date, task, number) {
