@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({
 
 // Create a route to respond to a call
 app.post('/createReminder', twilio.webhook(authToken, {url: 'https://remind-jc.herokuapp.com/createReminder'}), function(req, res) {
-    console.log(JSON.stringify(req))
+    console.log(JSON.stringify(req.body))
     var twiml = new twilio.TwimlResponse();
     twiml.message('Hello from node.js booi!');
 
