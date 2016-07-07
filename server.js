@@ -27,11 +27,19 @@ app.use(bodyParser.urlencoded({
 
 // Create a route to respond to a call
 app.post('/createReminder', twilio.webhook(authToken, {url: 'https://remind-jc.herokuapp.com/createReminder'}), function(req, res) {
-    console.log(JSON.stringify(req.body))
-    var twiml = new twilio.TwimlResponse();
-    twiml.message('Hello from node.js booi!');
+  console.log(JSON.stringify(req.body.Body))
 
-    res.send(twiml);
+  var twiml = new twilio.TwimlResponse();
+  var msg = req.body.Body.toLowerCase()
+  // remind tomorrow to pick up laundry
+  if (msg.split(' ')[0] === 'remind') {
+    var task = msg.split(' to ')[1]
+    var time = chrono.parse(msg.split(' to ')[1].replace(/remind\s/, '')).toString()
+    twiml.message(`A reminder to ${task} at ${time}!`)
+  } else {
+    twiml.message('No valid command!')
+  }
+  res.send(twiml);
 });
 
 app.listen(process.env.PORT || 3000);
