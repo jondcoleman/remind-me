@@ -1,11 +1,12 @@
 var twilio = require('express')
 var express = require('express')
 var bodyParser = require('body-parser')
+var chrono = require('chrono-node')
+
 require('dotenv').config()
 
 var accountSid = process.env.ACCOUNT_SID // Your Account SID from www.twilio.com/console
 var authToken = process.env.AUTH_TOKEN   // Your Auth Token from www.twilio.com/console
-console.log(accountSid, authToken)
 var twilio = require('twilio');
 var client = new twilio.RestClient(accountSid, authToken);
 
@@ -26,22 +27,11 @@ app.use(bodyParser.urlencoded({
 
 // Create a route to respond to a call
 app.post('/createReminder', twilio.webhook(authToken, {url: 'https://remind-jc.herokuapp.com/createReminder'}), function(req, res) {
-    //Validate that this request really came from Twilio...
-    console.log('test')
+    console.log(JSON.stringify(req))
     var twiml = new twilio.TwimlResponse();
     twiml.message('Hello from node.js booi!');
 
-    // Render the TwiML response as XML
     res.send(twiml);
-    // console.log(authToken)
-    // if (twilio.validateExpressRequest(req, authToken)) {
-    //   console.log('valid')
-    //   res.send('<Response><Sms>Voting is now closed.</Sms></Response>');
-    // }
-    // else {
-    //   console.log('not valid')
-    //   res.send('you are not twilio.  Buzz off.');
-    // }
 });
 
 app.listen(process.env.PORT || 3000);
