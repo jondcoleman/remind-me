@@ -67,7 +67,7 @@ app.post('/createReminder', twilio.webhook(authToken, {url: `${appHost}/createRe
 
     createReminder(timeString, task, num)
 
-    twiml.message(`Reminder set to ${task} at ${time.toString()}!`)
+    twiml.message(`Reminder set to ${task} at ${timeString}!`)
   } else {
     twiml.message('No valid command!')
   }
