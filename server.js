@@ -3,7 +3,7 @@
 var twilio = require('express')
 var express = require('express')
 var bodyParser = require('body-parser')
-var utils =  require('./utils')
+// var utils =  require('./utils')
 var Agenda = require('agenda')
 
 require('dotenv').config()
@@ -61,15 +61,11 @@ app.post('/createReminder', twilio.webhook(authToken, {url: `${appHost}/createRe
 
   if (msg.split(' ')[0] === 'remind') {
     var task = msg.split(' to ')[1]
-    var timeString = msg.split(' to ')[0].replace(/remind\s/, '')
-
+    var timeString = msg.split(' to ')[0].replace(/remind\s/, '').trim()
+    // var time = utils.getDateFromString(timeString)
     console.log(task, timeString)
 
-    // var time = utils.getDateFromString(timeString)
-
-    var time = timeString.trim()
-
-    createReminder(time, task, num)
+    createReminder(timeString, task, num)
 
     twiml.message(`Reminder set to ${task} at ${time.toString()}!`)
   } else {
