@@ -34,7 +34,10 @@ agenda.on('ready', function() {
 });
 
 function createReminder(date, task, number) {
-  agenda.schedule(date, 'create scheduled reminder', {task, number})
+  agenda.schedule(date, 'create scheduled reminder', {task, number}, (err, result) => {
+    if (err) console.log(err)
+    console.log(result)
+  })
 }
 
 var app = express();
