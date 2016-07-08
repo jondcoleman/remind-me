@@ -62,7 +62,9 @@ app.post('/createReminder', twilio.webhook(authToken, {url: `${appHost}/createRe
 
     console.log(task, timeString)
 
-    var time = utils.getDateFromString(timeString)
+    // var time = utils.getDateFromString(timeString)
+
+    var time = timeString.trim()
 
     createReminder(time, task, num)
 
